@@ -1,4 +1,5 @@
 using UI.MySession;
+using UI.MySession2;
 
 namespace UI
 {
@@ -10,14 +11,8 @@ namespace UI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IMySessionStorageEngine>(services =>
-            {
-                var path = Path.Combine(services.GetRequiredService<IHostEnvironment>().ContentRootPath, "sessions");
-                Directory.CreateDirectory(path);
-                return new FileMySessionStorageEngine(path);
-            });
-            builder.Services.AddSingleton<IMySessionStorage, MySessionStorage>();
-
+            builder.Services.AddMySession();
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
